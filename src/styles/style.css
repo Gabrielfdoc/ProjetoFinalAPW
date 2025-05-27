@@ -10,21 +10,43 @@ header {
     background-color: #343a40;
 }
 
-.logo {
-    height: 40px;
-    cursor: pointer;
+/* Ajuste para o container do header */
+header > .container {
+    display: flex;
+    align-items: center;
+    /* Removido justify-content para controlar via nav e div */
 }
 
-nav a {
+/* Faz o nav ocupar o máximo espaço e alinhar links à esquerda */
+header nav {
+    flex-grow: 1;
+    display: flex;
+    gap: 1rem; /* espaçamento entre links */
+    justify-content: flex-start;
+    margin-right: 0; /* remove margem que atrapalha o alinhamento */
+}
+
+/* Os links mantêm seu estilo */
+nav a, .navbar .nav-link {
     color: #fff;
-    margin-left: 1rem;
     font-weight: 500;
-    transition: color 0.3s;
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
+    text-decoration: none;
 }
 
-nav a:hover {
+nav a:hover, .navbar .nav-link:hover,
+nav a:focus, .navbar .nav-link:focus {
     color: #0d6efd;
     text-decoration: none;
+}
+
+/* Botões de login e registro ficam fixos à direita */
+header > .container > div {
+    flex-shrink: 0;
+    display: flex;
+    gap: 0.5rem;
 }
 
 .hero {
@@ -111,9 +133,9 @@ footer.rodape a:hover {
 
 .legenda-tarefas h5 {
     font-weight: 600;
-  }
-  
-  .icone-legenda {
+}
+
+.icone-legenda {
     font-size: 1.3rem;
     display: inline-flex;
     align-items: center;
@@ -127,19 +149,29 @@ footer.rodape a:hover {
     border-radius: 0;                /* Sem borda arredondada */
     width: auto;
     height: auto;
-  }
-   
-  
-  /* Cores para ícones conforme o estilo dos cards */
-  .icone-legenda.atrasada {
+}
+
+/* Cores para ícones conforme o estilo dos cards */
+.icone-legenda.atrasada {
     color: red;
-  }
-  
-  .icone-legenda.hoje {
+}
+
+.icone-legenda.hoje {
     color: #ffc107; /* amarelo */
-  }
-  
-  .icone-legenda.concluida {
+}
+
+.icone-legenda.concluida {
     color: #198754; /* verde bootstrap */
-  }
-  
+}
+
+/* Ajuste nos botões do header (login e registro) para melhor alinhamento */
+header .btn {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Remove outline padrão do botão hamburguer e adiciona sombra sutil no foco */
+.navbar-toggler:focus {
+    outline: none;
+    box-shadow: 0 0 5px #0d6efd;
+}

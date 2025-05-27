@@ -25,26 +25,34 @@
 
 <body>
 
-<header>
-  <!-- Cabeçalho da página, contém navegação principal -->
-
-  <div class="container d-flex align-items-center justify-content-between py-2">
-    <!-- Container Bootstrap com espaçamentos verticais e flexbox para alinhamento -->
-
-    <nav class="d-none d-md-flex align-items-center">
-      <!-- Navegação principal, oculta em telas pequenas (d-none) e exibida a partir do md (médio) -->
-
-      <a href="index.html">Início</a>
-      <!-- Link para página inicial -->
-
-      <a href="adicionarTarefa.html">Adicionar Tarefas</a>
-      <!-- Link para página de adicionar novas tarefas -->
-
-      <a href="exibirTarefas.html">Ver tarefas atuais</a>
-      <!-- Link para a própria página de exibição de tarefas -->
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="container d-flex align-items-center justify-content-between py-2">
+  
+        <!-- Botão menu hambúrguer para telas pequenas -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarMenu"
+          aria-controls="navbarMenu"
+          aria-expanded="false"
+          aria-label="Alternar menu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <!-- Menu colapsável -->
+        <div class="collapse navbar-collapse" id="navbarMenu">
+          <nav class="d-md-flex align-items-center ms-auto">
+            <a href="index.html" class="nav-link px-2">Início</a>
+            <a href="adicionarTarefa.html" class="nav-link px-2">Adicionar Tarefas</a>
+            <a href="exibirTarefas.html" class="nav-link px-2">Ver Tarefas Atuais</a>
+          </nav>
+        </div>
+      </div>
     </nav>
-  </div>
-</header>
+  </header>
 
 <main class="container py-5">
   <!-- Conteúdo principal da página dentro de um container Bootstrap com espaçamento vertical -->

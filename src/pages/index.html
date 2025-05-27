@@ -20,27 +20,44 @@
 </head>
 <body>
 
-<header>
-  <div class="container d-flex align-items-center justify-content-between py-2">
-    <!-- Navegação principal do site: links para as páginas de início, adicionar tarefas e exibir tarefas -->
-    <nav class="d-none d-md-flex align-items-center">
-      <!-- A classe d-none oculta o menu em telas pequenas, exibindo somente em md+ -->
-      <a href="index.html">Início</a>
-      <a href="adicionarTarefa.html">Adicionar Tarefas</a>
-      <a href="exibirTarefas.html">Ver Tarefas Atuais</a>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="container d-flex align-items-center justify-content-between py-2">
+  
+        <!-- Botão menu hambúrguer para telas pequenas -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarMenu"
+          aria-controls="navbarMenu"
+          aria-expanded="false"
+          aria-label="Alternar menu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <!-- Menu colapsável -->
+        <div class="collapse navbar-collapse" id="navbarMenu">
+          <nav class="d-md-flex align-items-center ms-auto">
+            <a href="index.html" class="nav-link px-2">Início</a>
+            <a href="adicionarTarefa.html" class="nav-link px-2">Adicionar Tarefas</a>
+            <a href="exibirTarefas.html" class="nav-link px-2">Ver Tarefas Atuais</a>
+          </nav>
+        </div>
+  
+        <!-- Botões de Login e Registrar ficam visíveis sempre -->
+        <div class="d-flex ms-3">
+          <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#modalLogin">
+            <i class="bi bi-box-arrow-in-right"></i> Login
+          </button>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCadastro">
+            <i class="bi bi-person-plus"></i> Registrar
+          </button>
+        </div>
+      </div>
     </nav>
-
-    <!-- Botões para abrir modais de login e cadastro, usando data attributes do Bootstrap -->
-    <div>
-      <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#modalLogin">
-        <i class="bi bi-box-arrow-in-right"></i> Login
-      </button>
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCadastro">
-        <i class="bi bi-person-plus"></i> Registrar
-      </button>
-    </div>
-  </div>
-</header>
+  </header>
 
 <section class="hero">
   <div class="container">
