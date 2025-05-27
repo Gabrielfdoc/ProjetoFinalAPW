@@ -108,3 +108,38 @@ footer.rodape a:hover {
     background-color: #ffecb3;
     border-color: #ffb300 !important;
 }
+
+.legenda-tarefas h5 {
+    font-weight: 600;
+  }
+  
+  .icone-legenda {
+    font-size: 1.3rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none !important;         /* Remove qualquer borda */
+    outline: none !important;        /* Remove outline */
+    box-shadow: none !important;     /* Remove sombra que pode parecer borda */
+    background-color: transparent;   /* Fundo transparente */
+    color: inherit;
+    padding: 0;                      /* Remove padding para não criar espaço */
+    border-radius: 0;                /* Sem borda arredondada */
+    width: auto;
+    height: auto;
+  }
+   
+  
+  /* Cores para ícones conforme o estilo dos cards */
+  .icone-legenda.atrasada {
+    color: red;
+  }
+  
+  .icone-legenda.hoje {
+    color: #ffc107; /* amarelo */
+  }
+  
+  .icone-legenda.concluida {
+    color: #198754; /* verde bootstrap */
+  }
+  

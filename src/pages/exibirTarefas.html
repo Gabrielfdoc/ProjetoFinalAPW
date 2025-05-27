@@ -52,6 +52,28 @@
   <h2 class="mb-4 text-center">Minhas Tarefas</h2>
   <!-- Título principal da página, centralizado com margem inferior -->
 
+  <div class="mb-4 legenda-tarefas">
+    <h5><i class="bi bi-info-circle-fill me-1"></i>Legenda</h5>
+    <div class="d-flex flex-wrap gap-4 mt-2">
+  
+      <div class="d-flex align-items-center">
+        <span class="icone-legenda atrasada me-2"><i class="bi bi-exclamation-circle-fill"></i></span>
+        <span>Tarefa Atrasada</span>
+      </div>
+  
+      <div class="d-flex align-items-center">
+        <span class="icone-legenda hoje me-2"><i class="bi bi-calendar-day-fill"></i></span>
+        <span>Tarefa do Dia</span>
+      </div>
+  
+      <div class="d-flex align-items-center">
+        <span class="icone-legenda concluida me-2"><i class="bi bi-check-circle-fill"></i></span>
+        <span>Tarefa Concluída</span>
+      </div>
+  
+    </div>
+  </div>  
+
   <div id="listaTarefas" class="row gy-3"></div>
   <!-- Container onde as tarefas serão dinamicamente inseridas pelo JavaScript
        row e gy-3 são classes Bootstrap para grid e espaçamento vertical entre linhas -->
