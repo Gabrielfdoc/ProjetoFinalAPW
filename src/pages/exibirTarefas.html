@@ -1,39 +1,88 @@
 <!DOCTYPE html>
+<!-- Declaração do tipo do documento como HTML5 -->
 <html lang="pt-BR">
+<!-- Atributo lang define o idioma principal da página como português do Brasil -->
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tarefas</title>
+  <!-- Define a codificação de caracteres para UTF-8, garantindo suporte a caracteres especiais -->
 
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Configura o viewport para que a página seja responsiva em dispositivos móveis -->
+
+  <title>Tarefas</title>
+  <!-- Título da página, exibido na aba do navegador -->
+
+  <!-- Inclusão do CSS do framework Bootstrap via CDN para estilização e componentes prontos -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Inclusão do pacote de ícones Bootstrap Icons via CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Link para arquivo CSS externo personalizado para estilos específicos do projeto -->
   <link rel="stylesheet" href="../styles/style.css" />
 </head>
+
 <body>
 
 <header>
+  <!-- Cabeçalho da página, contém navegação principal -->
+
   <div class="container d-flex align-items-center justify-content-between py-2">
-    <img src="../assets/img/img1.png" alt="Logo" class="logo" />
+    <!-- Container Bootstrap com espaçamentos verticais e flexbox para alinhamento -->
+
     <nav class="d-none d-md-flex align-items-center">
+      <!-- Navegação principal, oculta em telas pequenas (d-none) e exibida a partir do md (médio) -->
+
       <a href="index.html">Início</a>
+      <!-- Link para página inicial -->
+
       <a href="adicionarTarefa.html">Adicionar Tarefas</a>
+      <!-- Link para página de adicionar novas tarefas -->
+
       <a href="exibirTarefas.html">Ver tarefas atuais</a>
+      <!-- Link para a própria página de exibição de tarefas -->
     </nav>
   </div>
 </header>
 
 <main class="container py-5">
+  <!-- Conteúdo principal da página dentro de um container Bootstrap com espaçamento vertical -->
+
   <h2 class="mb-4 text-center">Minhas Tarefas</h2>
+  <!-- Título principal da página, centralizado com margem inferior -->
 
   <div id="listaTarefas" class="row gy-3"></div>
+  <!-- Container onde as tarefas serão dinamicamente inseridas pelo JavaScript
+       row e gy-3 são classes Bootstrap para grid e espaçamento vertical entre linhas -->
 </main>
 
-<footer class="baseboard">
-  <p>Repositório <a href="https://github.com/Gabrielfdoc/HTML-CSS-JS" target="_blank">GitHub</a> deste projeto</p>
-  <p>Desenvolvido por <a href="https://www.linkedin.com/in/gabrielfercor/" target="_blank">Gabriel Ferreira</a></p>
+<footer class="rodape">
+  <!-- Rodapé da página, estilizado pela classe rodape -->
+
+  <p>
+    Repositório
+    <a href="https://github.com/Gabrielfdoc/HTML-CSS-JS" target="_blank">
+      GitHub
+    </a>
+    deste projeto
+  </p>
+  <!-- Link para repositório do projeto no GitHub, abre em nova aba -->
+
+  <p>
+    Desenvolvido por
+    <a href="https://www.linkedin.com/in/gabrielfercor/" target="_blank">
+      Gabriel Ferreira
+    </a>
+  </p>
+  <!-- Creditação do desenvolvedor com link para perfil do LinkedIn, abre em nova aba -->
 </footer>
 
+<!-- Inclusão do JavaScript do Bootstrap para funcionalidades interativas -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Inclusão do script customizado exibir.js, que manipula a exibição das tarefas -->
 <script src="../scripts/exibir.js"></script>
+
 </body>
 </html>

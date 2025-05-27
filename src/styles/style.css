@@ -2,6 +2,8 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 header {
@@ -27,7 +29,7 @@ nav a:hover {
 
 .hero {
     flex-grow: 1;
-    background: url('https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+    background: url('https://as1.ftcdn.net/jpg/02/52/87/06/1000_F_252870650_q7DFTNMjW5cstLOAgbdF09y3bVovJRgz.jpg') no-repeat center center/cover;
     color: white;
     text-shadow: 0 0 10px rgba(0,0,0,0.7);
     display: flex;
@@ -47,24 +49,62 @@ nav a:hover {
     margin-bottom: 2rem;
 }
 
-footer.baseboard {
+main {
+    flex-grow: 1; /* Garante que main ocupe espaço flexível para empurrar o rodapé para baixo */
+}
+
+footer.rodape {
     background-color: #212529;
     color: #adb5bd;
     text-align: center;
     padding: 1rem 0;
-    margin-top: auto;
+    margin-top: auto; /* força o rodapé a ficar no final */
+    font-size: 0.9rem;
 }
 
-footer.baseboard a {
+footer.rodape a {
     color: #0d6efd;
     text-decoration: none;
 }
 
-footer.baseboard a:hover {
+footer.rodape a:hover {
     text-decoration: underline;
 }
 
 .form-control:focus {
     box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
     border-color: #0d6efd;
+}
+
+/* Destaca tarefas atrasadas */
+.atrasada {
+    border: 2px solid red !important;
+    background-color: #ffe6e6;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.atrasada:hover {
+    background-color: #ffcccc;
+    border-color: #cc0000 !important;
+}
+
+/* Estilo para mensagem de lista vazia */
+.mensagem-vazia {
+    color: #6c757d;
+    font-style: italic;
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.1rem;
+}
+
+/* Estilo para tarefas com prazo no dia atual */
+.hoje {
+    border: 2px solid #ffc107 !important; /* amarelo */
+    background-color: #fff8e1; /* amarelo clarinho */
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.hoje:hover {
+    background-color: #ffecb3;
+    border-color: #ffb300 !important;
 }

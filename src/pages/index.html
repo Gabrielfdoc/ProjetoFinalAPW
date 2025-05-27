@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <!-- Declaração da codificação de caracteres para UTF-8, que suporta caracteres especiais em português -->
   <meta charset="UTF-8" />
+
+  <!-- Meta tag para garantir responsividade em dispositivos móveis -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>Gerenciador de Tarefas</title>
 
+  <!-- Importação do CSS do framework Bootstrap, versão 5.3.6, para estilos e componentes prontos -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+  <!-- Importação dos ícones do Bootstrap Icons para uso em botões e interface -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
-  <!-- CSS externo -->
+  <!-- Importação da folha de estilo personalizada para customizações específicas -->
   <link rel="stylesheet" href="../styles/style.css" />
 </head>
 <body>
 
 <header>
   <div class="container d-flex align-items-center justify-content-between py-2">
-    <img src="../assets/img/img1.png" alt="Logo Gerenciador de Tarefas" class="logo" />
+    <!-- Navegação principal do site: links para as páginas de início, adicionar tarefas e exibir tarefas -->
     <nav class="d-none d-md-flex align-items-center">
+      <!-- A classe d-none oculta o menu em telas pequenas, exibindo somente em md+ -->
       <a href="index.html">Início</a>
       <a href="adicionarTarefa.html">Adicionar Tarefas</a>
-      <a href="exibirTarefas.html">Ver tarefas atuais</a>
+      <a href="exibirTarefas.html">Ver Tarefas Atuais</a>
     </nav>
+
+    <!-- Botões para abrir modais de login e cadastro, usando data attributes do Bootstrap -->
     <div>
-      <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+      <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#modalLogin">
         <i class="bi bi-box-arrow-in-right"></i> Login
       </button>
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCadastro">
         <i class="bi bi-person-plus"></i> Registrar
       </button>
     </div>
@@ -34,35 +44,43 @@
 
 <section class="hero">
   <div class="container">
+    <!-- Título e subtítulo de apresentação do sistema -->
     <h1>Gerencie suas tarefas de forma simples e eficiente</h1>
     <p>Organize seu dia a dia, aumente sua produtividade e nunca mais perca um prazo.</p>
-    <button class="btn btn-lg btn-primary me-2" data-bs-toggle="modal" data-bs-target="#registerModal">Comece agora</button>
-    <button class="btn btn-lg btn-outline-light" data-bs-toggle="modal" data-bs-target="#loginModal">Já tenho conta</button>
+
+    <!-- Botões que disparam os modais de cadastro e login para incentivar o usuário -->
+    <button class="btn btn-lg btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalCadastro">Comece agora</button>
+    <button class="btn btn-lg btn-outline-light" data-bs-toggle="modal" data-bs-target="#modalLogin">Já tenho conta</button>
   </div>
 </section>
 
-<!-- Modal Login -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+<!-- Modal de Login: janela popup para entrada dos dados de usuário -->
+<div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="tituloModalLogin" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form id="loginForm" novalidate>
+      <!-- Formulário de login com validação customizada via JavaScript -->
+      <form id="formLogin" novalidate>
         <div class="modal-header">
-          <h5 class="modal-title">Login</h5>
+          <h5 class="modal-title" id="tituloModalLogin">Login</h5>
+          <!-- Botão para fechar o modal -->
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
         </div>
         <div class="modal-body">
+          <!-- Campo para entrada do e-mail do usuário -->
           <div class="mb-3">
-            <label for="loginEmail" class="form-label">E-mail</label>
-            <input type="email" class="form-control" id="loginEmail" required />
+            <label for="emailLogin" class="form-label">E-mail</label>
+            <input type="email" class="form-control" id="emailLogin" required />
             <div class="invalid-feedback">Insira um e-mail válido.</div>
           </div>
+          <!-- Campo para entrada da senha -->
           <div class="mb-3">
-            <label for="loginPassword" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="loginPassword" required minlength="6" />
+            <label for="senhaLogin" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="senhaLogin" required minlength="6" />
             <div class="invalid-feedback">A senha deve ter pelo menos 6 caracteres.</div>
           </div>
         </div>
         <div class="modal-footer">
+          <!-- Botão para enviar o formulário -->
           <button type="submit" class="btn btn-primary w-100">Entrar</button>
         </div>
       </form>
@@ -70,38 +88,44 @@
   </div>
 </div>
 
-<!-- Modal Registrar -->
-<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+<!-- Modal de Cadastro: formulário para registrar novo usuário -->
+<div class="modal fade" id="modalCadastro" tabindex="-1" aria-labelledby="tituloModalCadastro" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form id="registerForm" novalidate>
+      <!-- Formulário com validação para criação de conta -->
+      <form id="formCadastro" novalidate>
         <div class="modal-header">
-          <h5 class="modal-title">Registrar</h5>
+          <h5 class="modal-title" id="tituloModalCadastro">Registrar</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
         </div>
         <div class="modal-body">
+          <!-- Campo para nome completo -->
           <div class="mb-3">
-            <label for="registerName" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="registerName" required minlength="3" />
+            <label for="nomeCadastro" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nomeCadastro" required minlength="3" />
             <div class="invalid-feedback">Digite seu nome completo.</div>
           </div>
+          <!-- Campo para e-mail -->
           <div class="mb-3">
-            <label for="registerEmail" class="form-label">E-mail</label>
-            <input type="email" class="form-control" id="registerEmail" required />
+            <label for="emailCadastro" class="form-label">E-mail</label>
+            <input type="email" class="form-control" id="emailCadastro" required />
             <div class="invalid-feedback">E-mail inválido.</div>
           </div>
+          <!-- Campo para senha -->
           <div class="mb-3">
-            <label for="registerPassword" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="registerPassword" required minlength="6" />
+            <label for="senhaCadastro" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="senhaCadastro" required minlength="6" />
             <div class="invalid-feedback">Pelo menos 6 caracteres.</div>
           </div>
+          <!-- Campo para confirmação da senha -->
           <div class="mb-3">
-            <label for="registerPasswordConfirm" class="form-label">Confirmar Senha</label>
-            <input type="password" class="form-control" id="registerPasswordConfirm" required />
-            <div class="invalid-feedback" id="passwordMismatchFeedback">As senhas não coincidem.</div>
+            <label for="confirmaSenhaCadastro" class="form-label">Confirmar Senha</label>
+            <input type="password" class="form-control" id="confirmaSenhaCadastro" required />
+            <div class="invalid-feedback" id="feedbackSenhaDivergente">As senhas não coincidem.</div>
           </div>
         </div>
         <div class="modal-footer">
+          <!-- Botão para enviar os dados do cadastro -->
           <button type="submit" class="btn btn-primary w-100">Registrar</button>
         </div>
       </form>
@@ -109,7 +133,8 @@
   </div>
 </div>
 
-<footer class="baseboard">
+<footer class="rodape">
+  <!-- Rodapé com links para repositório do projeto e perfil do desenvolvedor -->
   <p>
     Repositório
     <a href="https://github.com/Gabrielfdoc/HTML-CSS-JS/tree/main/Netflix%20Clone" target="_blank">GitHub</a>
@@ -121,10 +146,10 @@
   </p>
 </footer>
 
-<!-- Bootstrap bundle -->
+<!-- Importação do JavaScript do Bootstrap para funcionalidades de componentes dinâmicos (modais, dropdowns, etc) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
-<!-- Script personalizado -->
+<!-- Script personalizado para funcionalidades específicas do sistema (login, cadastro) -->
 <script src="../scripts/main.js"></script>
 
 </body>
