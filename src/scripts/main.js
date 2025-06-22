@@ -1,70 +1,193 @@
 (() => {
   'use strict';
 
-  // Captura o formulário de login pelo ID para manipular seu envio
+  // === UTILITÁRIOS DE USUÁRIOS ===
+
+  // Função para recuperar os usuários cadastrados no localStorage
+  function pegarUsuarios() {
+    const usuariosJSON = localStorage.getItem('usuarios');
+    return usuariosJSON ? JSON.parse(usuariosJSON) : [];
+  }
+
+  // Função para salvar a lista de usuários atualizada no localStorage
+  function salvarUsuarios(usuarios) {
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+  }
+
+  // === ATUALIZAÇÃO DO MENU CONFORME LOGIN ===
+
+  // Função que atualiza os elementos da navbar com base no estado de autenticação
+  function atualizarMenuUsuario() {
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+
+    // Seletores dos itens de menu
+    const menuUsuario = document.getElementById('menuUsuario');               // Span do usuário
+    const menuSair = document.getElementById('menuSair');                     // Botão "Sair"
+    const menuLoginCadastro = document.getElementById('menuLoginCadastro');  // Botões "Login" e "Cadastro"
+    const usuarioLogadoInfo = document.getElementById('usuarioLogadoInfo');  // Nome do usuário exibido
+
+    if (usuarioLogado) {
+      // Se estiver logado, exibe nome do usuário e botões correspondentes
+      if (usuarioLogadoInfo) usuarioLogadoInfo.textContent = usuarioLogado.nome;
+
+      if (menuUsuario) {
+        menuUsuario.classList.remove('d-none');
+        menuUsuario.classList.add('d-flex');
+      }
+
+      if (menuSair) {
+        menuSair.classList.remove('d-none');
+        menuSair.classList.add('d-flex');
+      }
+
+      if (menuLoginCadastro) {
+        menuLoginCadastro.classList.add('d-none');
+      }
+    } else {
+      // Se não estiver logado, oculta nome do usuário e mostra login/cadastro
+      if (menuUsuario) {
+        menuUsuario.classList.remove('d-flex');
+        menuUsuario.classList.add('d-none');
+      }
+
+      if (menuSair) {
+        menuSair.classList.remove('d-flex');
+        menuSair.classList.add('d-none');
+      }
+
+      if (menuLoginCadastro) {
+        menuLoginCadastro.classList.remove('d-none');
+      }
+    }
+  }
+
+  // === LOGOUT ===
+
+  // Função global para logout (removida sessão e redireciona para a home)
+  window.logout = function () {
+    if (confirm('Deseja realmente sair?')) {
+      localStorage.removeItem('usuarioLogado'); // Remove sessão do localStorage
+      atualizarMenuUsuario();                   // Atualiza visual do menu
+      window.location.href = 'index.html';      // Redireciona à página inicial
+    }
+  };
+
+  // === CADASTRO DE USUÁRIO ===
+
+  const formularioCadastro = document.getElementById('formCadastro');
+
+  if (formularioCadastro) {
+    const inputNome = document.getElementById('nomeCadastro');
+    const inputEmailCadastro = document.getElementById('emailCadastro');
+    const inputSenhaCadastro = document.getElementById('senhaCadastro');
+    const inputConfirmaSenha = document.getElementById('confirmaSenhaCadastro');
+    const feedbackSenhaDivergente = document.getElementById('feedbackSenhaDivergente');
+
+    formularioCadastro.addEventListener('submit', evento => {
+      evento.preventDefault();      // Evita envio padrão do formulário
+      evento.stopPropagation();     // Impede propagação do evento para outros elementos
+
+      // Esconde feedback de erro de senha antes de nova verificação
+      feedbackSenhaDivergente.style.display = 'none';
+
+      // Validação HTML5
+      if (!formularioCadastro.checkValidity()) {
+        formularioCadastro.classList.add('was-validated');
+        return;
+      }
+
+      // Verifica se as senhas coincidem
+      if (inputSenhaCadastro.value !== inputConfirmaSenha.value) {
+        feedbackSenhaDivergente.style.display = 'block';
+        inputConfirmaSenha.setCustomValidity('As senhas não coincidem');
+        formularioCadastro.classList.add('was-validated');
+        return;
+      } else {
+        inputConfirmaSenha.setCustomValidity('');
+      }
+
+      // Verifica se e-mail já está cadastrado
+      const usuarios = pegarUsuarios();
+      const emailExistente = usuarios.some(u => u.email.toLowerCase() === inputEmailCadastro.value.toLowerCase());
+
+      if (emailExistente) {
+        alert('Já existe um usuário cadastrado com esse e-mail.');
+        return;
+      }
+
+      // Cria novo objeto de usuário
+      const novoUsuario = {
+        nome: inputNome.value.trim(),
+        email: inputEmailCadastro.value.trim().toLowerCase(),
+        senha: inputSenhaCadastro.value // (em sistemas reais, nunca armazenar senhas em texto plano!)
+      };
+
+      // Salva o novo usuário
+      usuarios.push(novoUsuario);
+      salvarUsuarios(usuarios);
+
+      // Feedback e encerramento do processo
+      alert('Cadastro realizado com sucesso! Agora você pode fazer login.');
+      formularioCadastro.reset();
+      formularioCadastro.classList.remove('was-validated');
+
+      const modalCadastro = bootstrap.Modal.getInstance(document.getElementById('modalCadastro'));
+      modalCadastro.hide();
+    });
+  }
+
+  // === LOGIN DE USUÁRIO ===
+
   const formularioLogin = document.getElementById('formLogin');
 
-  // Adiciona um ouvinte para o evento de envio (submit) do formulário de login
-  formularioLogin.addEventListener('submit', evento => {
-    // Verifica se o formulário está válido segundo as regras HTML e Bootstrap
-    if (!formularioLogin.checkValidity()) {
-      // Se inválido, impede o envio do formulário e bloqueia a propagação do evento
+  if (formularioLogin) {
+    const inputEmailLogin = document.getElementById('emailLogin');
+    const inputSenhaLogin = document.getElementById('senhaLogin');
+
+    formularioLogin.addEventListener('submit', evento => {
       evento.preventDefault();
       evento.stopPropagation();
-    }
 
-    // Adiciona a classe para ativar o feedback visual das validações no Bootstrap
-    formularioLogin.classList.add('was-validated');
-  });
+      // Validação HTML5
+      if (!formularioLogin.checkValidity()) {
+        formularioLogin.classList.add('was-validated');
+        return;
+      }
 
-  // Captura o formulário de cadastro e os campos de senha e confirmação de senha
-  const formularioCadastro = document.getElementById('formCadastro');
-  const inputSenha = document.getElementById('senhaCadastro');
-  const inputConfirmaSenha = document.getElementById('confirmaSenhaCadastro');
-  const feedbackSenhaDivergente = document.getElementById('feedbackSenhaDivergente');
+      // Busca usuário pelo e-mail e senha
+      const usuarios = pegarUsuarios();
+      const usuarioEncontrado = usuarios.find(
+        u => u.email.toLowerCase() === inputEmailLogin.value.trim().toLowerCase() &&
+             u.senha === inputSenhaLogin.value
+      );
 
-  // Adiciona ouvinte para submissão do formulário de cadastro
-  formularioCadastro.addEventListener('submit', evento => {
-    // Previne o comportamento padrão de recarregar a página e evita propagação do evento
-    evento.preventDefault();
-    evento.stopPropagation();
+      if (!usuarioEncontrado) {
+        alert('E-mail ou senha incorretos. Tente novamente.');
+        formularioLogin.classList.add('was-validated');
+        return;
+      }
 
-    // Inicialmente esconde a mensagem de erro de senhas divergentes
-    feedbackSenhaDivergente.style.display = 'none';
+      // Login bem-sucedido: armazena sessão no localStorage
+      alert(`Bem-vindo, ${usuarioEncontrado.nome}!`);
+      localStorage.setItem('usuarioLogado', JSON.stringify(usuarioEncontrado));
+      atualizarMenuUsuario(); // Atualiza navbar
 
-    // Verifica se o formulário é válido conforme regras definidas (ex.: campos obrigatórios)
-    if (!formularioCadastro.checkValidity()) {
-      // Se inválido, ativa o feedback visual de erro e encerra a função
-      formularioCadastro.classList.add('was-validated');
-      return;
-    }
+      // Limpa e fecha modal
+      formularioLogin.reset();
+      formularioLogin.classList.remove('was-validated');
 
-    // Compara os valores das senhas para garantir que são iguais
-    if (inputSenha.value !== inputConfirmaSenha.value) {
-      // Se forem diferentes, exibe a mensagem de erro específica e seta validade customizada
-      feedbackSenhaDivergente.style.display = 'block';
-      inputConfirmaSenha.setCustomValidity('As senhas não coincidem');
+      const modalLogin = bootstrap.Modal.getInstance(document.getElementById('modalLogin'));
+      modalLogin.hide();
 
-      // Ativa feedback visual para o usuário corrigir o erro
-      formularioCadastro.classList.add('was-validated');
-      return;
-    } else {
-      // Se senhas coincidem, remove a validade customizada para permitir envio
-      inputConfirmaSenha.setCustomValidity('');
-    }
+      // Recarrega a página para aplicar mudanças na interface
+      window.location.reload();
+    });
+  }
 
-    // Aqui normalmente ocorreria o envio dos dados para um servidor/backend
-    // Como não há backend implementado, apenas exibe um alerta de sucesso
-    alert('Cadastro realizado com sucesso! (Aqui seria implementado o backend)');
+  // === INICIALIZAÇÃO AUTOMÁTICA ===
 
-    // Reseta o formulário para limpar os campos após o envio
-    formularioCadastro.reset();
-
-    // Remove a classe de validação para evitar efeitos visuais persistentes
-    formularioCadastro.classList.remove('was-validated');
-
-    // Fecha o modal de cadastro usando a API do Bootstrap para modais
-    const modalCadastro = bootstrap.Modal.getInstance(document.getElementById('modalCadastro'));
-    modalCadastro.hide();
+  // Atualiza o menu automaticamente ao carregar a página
+  document.addEventListener('DOMContentLoaded', () => {
+    atualizarMenuUsuario();
   });
 })();

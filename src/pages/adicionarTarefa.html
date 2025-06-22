@@ -1,30 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <!-- Declaração da codificação UTF-8 para suporte a caracteres especiais -->
   <meta charset="UTF-8" />
-  
-  <!-- Meta tag para garantir responsividade em dispositivos móveis -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
   <title>Adicionar Tarefa</title>
 
-  <!-- Importação do CSS do framework Bootstrap para estilização e componentes -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" />
-  
-  <!-- Importação dos ícones Bootstrap Icons para uso em botões e elementos -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-  
-  <!-- Importação do CSS personalizado para estilos específicos do projeto -->
   <link rel="stylesheet" href="../styles/style.css" />
 </head>
 <body>
 
   <header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <div class="container d-flex align-items-center justify-content-between py-2">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark bg-opacity-75 fixed-top shadow-sm" style="backdrop-filter: blur(8px);">
+      <div class="container">
+        <a href="index.html" class="navbar-brand fw-bold fs-4">
+          <i class="bi bi-check2-square me-2"></i>ORGanize
+        </a>
   
-        <!-- Botão menu hambúrguer para telas pequenas -->
         <button
           class="navbar-toggler"
           type="button"
@@ -32,66 +25,133 @@
           data-bs-target="#navbarMenu"
           aria-controls="navbarMenu"
           aria-expanded="false"
-          aria-label="Alternar menu"
+          aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
   
-        <!-- Menu colapsável -->
         <div class="collapse navbar-collapse" id="navbarMenu">
-          <nav class="d-md-flex align-items-center ms-auto">
-            <a href="index.html" class="nav-link px-2">Início</a>
-            <a href="adicionarTarefa.html" class="nav-link px-2">Adicionar Tarefas</a>
-            <a href="exibirTarefas.html" class="nav-link px-2">Ver Tarefas Atuais</a>
-          </nav>
+          <ul class="navbar-nav ms-auto gap-3 fs-5">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link px-3">Início</a>
+            </li>
+            <li class="nav-item">
+              <a href="adicionarTarefa.html" class="nav-link px-3">Adicionar Objetivos</a>
+            </li>
+            <li class="nav-item">
+              <a href="exibirTarefas.html" class="nav-link px-3">Ver Objetivos</a>
+            </li>
+  
+            <!-- Itens que aparecem quando NÃO está logado -->
+            <li class="nav-item" id="menuLogin">
+              <a href="#" class="nav-link px-3" data-bs-toggle="modal" data-bs-target="#modalLogin">Entrar</a>
+            </li>
+            <li class="nav-item" id="menuCadastro">
+              <a href="#" class="nav-link px-3" data-bs-toggle="modal" data-bs-target="#modalCadastro">Registrar</a>
+            </li>
+  
+            <!-- Itens que aparecem quando ESTÁ logado -->
+            <li class="nav-item d-none" id="menuUsuario">
+              <span class="nav-link px-3">Olá, <strong id="usuarioLogadoInfo">usuário</strong></span>
+            </li>
+            <li class="nav-item d-none" id="menuSair">
+              <a href="#" class="nav-link text-danger fw-semibold" onclick="logout()">Sair</a>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
+
+    <!-- Espaço para o fixed-top não sobrepor o conteúdo -->
+    <div style="height: 70px;"></div>
   </header>
   
 
-<main class="container py-5">
-  <h2 class="mb-4 text-center">Adicionar Nova Tarefa</h2>
+  <main class="container py-5">
+    <h2 class="mb-4 text-center">Criar Novo Objetivo</h2>
 
-  <!-- Formulário para inclusão de nova tarefa -->
-  <form id="formTarefa" class="mx-auto" style="max-width: 600px;" novalidate>
-    
-    <!-- Campo para título da tarefa -->
-    <div class="mb-3">
-      <label for="titulo" class="form-label">Título da tarefa</label>
-      <input type="text" class="form-control" id="titulo" required minlength="3" />
-      <div class="invalid-feedback">Digite um título válido (mínimo 3 caracteres).</div>
+    <form id="formObjetivo" class="mx-auto" style="max-width: 600px;" novalidate>
+      
+      <!-- Nome do Objetivo -->
+      <div class="mb-3">
+        <label for="nomeObjetivo" class="form-label">Nome do Objetivo</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nomeObjetivo"
+          name="nomeObjetivo"
+          placeholder="Ex: Aprender Java do zero"
+          required
+          minlength="3"
+        />
+        <div class="invalid-feedback">Informe um nome válido com pelo menos 3 caracteres.</div>
+      </div>
+
+      <!-- Descrição do Objetivo -->
+      <div class="mb-3">
+        <label for="descricao" class="form-label">Descreva seu objetivo</label>
+        <textarea
+          class="form-control"
+          id="descricao"
+          name="descricao"
+          placeholder="Descreva seu objetivo com clareza (ex: Quero aprender Java para me tornar dev backend)"
+          rows="4"
+          required
+          minlength="10"
+        ></textarea>
+        <div class="invalid-feedback">Descreva melhor seu objetivo para que a IA possa gerar tarefas úteis.</div>
+      </div>
+
+      <!-- Prazo -->
+      <div class="mb-3">
+        <label for="prazo" class="form-label">Data limite</label>
+        <input
+          type="date"
+          class="form-control"
+          id="prazo"
+          name="prazo"
+          required
+        />
+        <div class="invalid-feedback">Informe uma data válida para o prazo.</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Gerar Tarefas com IA</button>
+    </form>
+
+    <div class="mt-4" id="carregando" style="display: none;">
+      <div class="text-center">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="mt-2">Gerando tarefas com ajuda da IA...</p>
+      </div>
     </div>
+  </main>
 
-    <!-- Campo para descrição da tarefa -->
-    <div class="mb-3">
-      <label for="descricao" class="form-label">Descrição</label>
-      <textarea class="form-control" id="descricao" rows="4" required></textarea>
-      <div class="invalid-feedback">A descrição é obrigatória.</div>
+  <footer class="bg-dark text-light py-4 mt-auto">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+      <div>
+        <p class="mb-0">
+          Repositório no
+          <a href="https://github.com/Gabrielfdoc/ProjetoFinalAPW" target="_blank" class="text-decoration-none link-light fw-semibold">
+            GitHub <i class="bi bi-github"></i>
+          </a>
+        </p>
+      </div>
+  
+      <div>
+        <p class="mb-0">
+          Desenvolvido por
+          <a href="https://www.linkedin.com/in/gabrielfercor/" target="_blank" class="text-decoration-none link-info fw-semibold">
+            Gabriel Ferreira <i class="bi bi-linkedin"></i>
+          </a>
+        </p>
+      </div>
     </div>
+  </footer>
 
-    <!-- Campo para data de prazo da tarefa -->
-    <div class="mb-3">
-      <label for="prazo" class="form-label">Prazo</label>
-      <input type="date" class="form-control" id="prazo" required />
-      <div class="invalid-feedback">Informe uma data válida.</div>
-    </div>
-
-    <!-- Botão para enviar o formulário e salvar a tarefa -->
-    <button type="submit" class="btn btn-success w-100">Salvar Tarefa</button>
-  </form>
-</main>
-
-<footer class="rodape">
-  <!-- Rodapé com links para repositório GitHub e perfil do desenvolvedor -->
-  <p>Repositório <a href="https://github.com/Gabrielfdoc/ProjetoFinalAPW" target="_blank">GitHub</a> deste projeto</p>
-  <p>Desenvolvido por <a href="https://www.linkedin.com/in/gabrielfercor/" target="_blank">Gabriel Ferreira</a></p>
-</footer>
-
-<!-- Importação do JS do Bootstrap para funcionalidades dos componentes -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Script personalizado para tratamento do formulário de adicionar tarefa -->
-<script src="../scripts/adicionar.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../scripts/adicionar.js"></script>
+  <script src="../scripts/main.js"></script>
+  <script src="../scripts/autenticacao.js"></script>
+  
 </body>
 </html>

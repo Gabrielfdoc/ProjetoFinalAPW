@@ -21,10 +21,12 @@
 <body>
 
   <header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <div class="container d-flex align-items-center justify-content-between py-2">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark bg-opacity-75 fixed-top shadow-sm" style="backdrop-filter: blur(8px);">
+      <div class="container">
+        <a href="index.html" class="navbar-brand fw-bold fs-4">
+          <i class="bi bi-check2-square me-2"></i>ORGanize
+        </a>
   
-        <!-- Botão menu hambúrguer para telas pequenas -->
         <button
           class="navbar-toggler"
           type="button"
@@ -32,32 +34,43 @@
           data-bs-target="#navbarMenu"
           aria-controls="navbarMenu"
           aria-expanded="false"
-          aria-label="Alternar menu"
+          aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
   
-        <!-- Menu colapsável -->
         <div class="collapse navbar-collapse" id="navbarMenu">
-          <nav class="d-md-flex align-items-center ms-auto">
-            <a href="index.html" class="nav-link px-2">Início</a>
-            <a href="adicionarTarefa.html" class="nav-link px-2">Adicionar Tarefas</a>
-            <a href="exibirTarefas.html" class="nav-link px-2">Ver Tarefas Atuais</a>
-          </nav>
-        </div>
-  
-        <!-- Botões de Login e Registrar ficam visíveis sempre -->
-        <div class="d-flex ms-3">
-          <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#modalLogin">
-            <i class="bi bi-box-arrow-in-right"></i> Login
-          </button>
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCadastro">
-            <i class="bi bi-person-plus"></i> Registrar
-          </button>
+          <ul class="navbar-nav ms-auto gap-3 fs-5 align-items-center">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link px-3">Início</a>
+            </li>
+            <li class="nav-item">
+              <a href="adicionarTarefa.html" class="nav-link px-3">Adicionar Objetivos</a>
+            </li>
+            <li class="nav-item">
+              <a href="exibirTarefas.html" class="nav-link px-3">Ver Objetivos</a>
+            </li>
+          
+            <li class="nav-item d-none" id="menuUsuario">
+              <a href="#" class="nav-link px-3 disabled">Olá, <strong id="usuarioLogadoInfo">usuário</strong></a>
+            </li>
+            <li class="nav-item d-none" id="menuSair">
+              <a href="#" class="nav-link text-danger fw-semibold" onclick="logout()">Sair</a>
+            </li>
+          
+            <li class="nav-item" id="menuLoginCadastro">
+              <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#modalLogin">Login</button>
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCadastro">Registrar</button>
+            </li>
+          </ul>         
         </div>
       </div>
     </nav>
+
+    <!-- Espaço para o fixed-top não sobrepor o conteúdo -->
+    <div style="height: 70px;"></div>
   </header>
+  
 
 <section class="hero">
   <div class="container">
@@ -150,17 +163,26 @@
   </div>
 </div>
 
-<footer class="rodape">
-  <!-- Rodapé com links para repositório do projeto e perfil do desenvolvedor -->
-  <p>
-    Repositório
-    <a href="https://github.com/Gabrielfdoc/ProjetoFinalAPW" target="_blank">GitHub</a>
-    deste projeto
-  </p>
-  <p>
-    Desenvolvido por
-    <a href="https://www.linkedin.com/in/gabrielfercor/" target="_blank">Gabriel Ferreira</a>
-  </p>
+<footer class="bg-dark text-light py-4 mt-auto">
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+    <div>
+      <p class="mb-0">
+        Repositório no
+        <a href="https://github.com/Gabrielfdoc/ProjetoFinalAPW" target="_blank" class="text-decoration-none link-light fw-semibold">
+          GitHub <i class="bi bi-github"></i>
+        </a>
+      </p>
+    </div>
+
+    <div>
+      <p class="mb-0">
+        Desenvolvido por
+        <a href="https://www.linkedin.com/in/gabrielfercor/" target="_blank" class="text-decoration-none link-info fw-semibold">
+          Gabriel Ferreira <i class="bi bi-linkedin"></i>
+        </a>
+      </p>
+    </div>
+  </div>
 </footer>
 
 <!-- Importação do JavaScript do Bootstrap para funcionalidades de componentes dinâmicos (modais, dropdowns, etc) -->
@@ -168,6 +190,7 @@
 
 <!-- Script personalizado para funcionalidades específicas do sistema (login, cadastro) -->
 <script src="../scripts/main.js"></script>
+<script src="../scripts/autenticacao.js"></script>
 
 </body>
 </html>
